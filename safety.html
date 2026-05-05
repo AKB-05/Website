@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hide & Seek | Safety Guide + Emergency Contacts</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #f5e6a3;
+  line-height: 1.6;
+  font-size: 16px;
+  min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://ichef.bbci.co.uk/images/ic/1376xn/p04p8j20.jpg.webp');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  transform: scale(1.05);
+  z-index: -2;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+.navbar {
+  background: rgba(10, 15, 12, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #e6b422;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e6b422;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+.logo a:hover {
+  color: #f5d76e;
+}
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links li a {
+  color: #f5e6a3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+.nav-links li a:hover {
+  background: rgba(230,180,34,0.1);
+  color: #f5d76e;
+}
+.nav-links li a.active {
+  background: #e6b422;
+  color: #0a0f0c;
+}
+@media (max-width: 768px) {
+  .navbar { padding: 0.75rem 1rem; }
+  .nav-container { flex-direction: column; text-align: center; }
+  .nav-links li a { padding: 0.5rem 1rem; font-size: 0.85rem; }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #e6b422;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover {
+  color: #f5d76e;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #f5d76e;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.subtitle {
+  color: #c9b86a;
+  margin-bottom: 2rem;
+  border-left: 3px solid #e6b422;
+  padding-left: 1rem;
+}
+
+.section-card {
+  background: rgba(20, 30, 35, 0.75);
+  backdrop-filter: blur(4px);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(230,180,34,0.3);
+}
+.section-title {
+  color: #f5d76e;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e6b422;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+.section-title::before {
+  content: '▍';
+  color: #e6b422;
+  margin-right: 0.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.info-item {
+  background: rgba(0,0,0,0.4);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border-left: 3px solid #e6b422;
+}
+.info-label {
+  font-size: 0.7rem;
+  color: #c9b86a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f5d76e;
+  margin-top: 0.3rem;
+}
+.info-value a {
+  color: #e6b422;
+  text-decoration: none;
+}
+.info-value a:hover {
+  color: #f5d76e;
+  text-decoration: underline;
+}
+
+.safety-tip {
+  background: rgba(0,0,0,0.4);
+  padding: 0.8rem;
+  border-radius: 0.75rem;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid #e6b422;
+}
+.safety-tip strong {
+  color: #e6b422;
+}
+
+.emergency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+.emergency-item {
+  background: rgba(0,0,0,0.4);
+  padding: 0.8rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  border: 1px solid rgba(230,180,34,0.3);
+}
+.emergency-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e6b422;
+}
+.emergency-service {
+  font-size: 0.7rem;
+  color: #c9b86a;
+  margin-top: 0.2rem;
+}
+
+.location-safety {
+  margin-top: 0.5rem;
+}
+.location-safety h4 {
+  color: #e6b422;
+  margin: 0.8rem 0 0.3rem 0;
+}
+
+.resource-link {
+  display: inline-block;
+  background: rgba(230,180,34,0.15);
+  border: 1px solid #e6b422;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  color: #f5e6a3;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+.resource-link:hover {
+  background: #e6b422;
+  color: #0a0f0c;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.5rem;
+  width: 48px;
+  height: 48px;
+  background: #e6b422;
+  color: #0a0f0c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 99;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.back-to-top:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  background: #f5d76e;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(230,180,34,0.3);
+  font-size: 0.8rem;
+  color: #a09860;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo"><a href="index.html">HIDE & SEEK</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="yim-tin-tsai.html">Yim Tin Tsai</a></li>
+      <li><a href="waterfall-bay.html">Waterfall Bay</a></li>
+      <li><a href="nam-koo-terrace.html">Nam Koo Terrace</a></li>
+      <li><a href="high-street.html">High Street</a></li>
+      <li><a href="safety.html" class="active">Safety</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to Home</a>
+  
+  <h1>Safety Guide</h1>
+  <p class="subtitle">Explore Hong Kong's haunted sites responsibly and safely</p>
+
+  <!-- Before You Go Section -->
+  <div class="section-card">
+    <h2 class="section-title">Before You Go</h2>
+    <div class="safety-tip">
+      <strong>Download Offline Maps</strong><br>
+      Mobile signals can be weak near mountains, coastal areas, and remote islands. Download offline Google Maps before leaving.
+      <a href="https://support.google.com/maps/answer/6291838" target="_blank" class="resource-link">Google Maps Offline Guide →</a>
+    </div>
+    <div class="safety-tip">
+      <strong>Check Weather Forecast</strong><br>
+      Always check before visiting outdoor locations. Avoid typhoon signals, heavy rain, or extreme heat warnings.
+      <a href="https://www.hko.gov.hk" target="_blank" class="resource-link">Hong Kong Observatory →</a>
+    </div>
+    <div class="safety-tip">
+      <strong>Wear Appropriate Footwear</strong><br>
+      Many locations have uneven terrain, rocky paths, or steep stairs. Wear sturdy, closed-toe shoes with good grip.
+    </div>
+    <div class="safety-tip">
+      <strong>Bring Essentials</strong><br>
+      Carry plenty of water, sunscreen, insect repellent, a portable charger, and a small first-aid kit.
+    </div>
+  </div>
+
+  <!-- Location Specific Safety -->
+  <div class="section-card">
+    <h2 class="section-title">Location Safety</h2>
+    
+    <div class="location-safety">
+      <h4>📍 Yim Tin Tsai (Sai Kung)</h4>
+      <div class="safety-tip" style="margin-left: 1rem;">
+        • Check ferry schedule before going - last ferry returns around 5:30pm<br>
+        • No shops or restaurants on the island - bring your own water and snacks<br>
+        • Wear sturdy shoes for uneven paths and rocky areas<br>
+        • Stay on marked trails - some areas are overgrown or unstable<br>
+        • Download offline map for Sai Kung area before departure
+      </div>
+    </div>
+
+    <div class="location-safety">
+      <h4>📍 Waterfall Bay (Pok Fu Lam)</h4>
+      <div class="safety-tip" style="margin-left: 1rem;">
+        • DO NOT SWIM - strong currents and sharp rocks make swimming extremely dangerous<br>
+        • Check tide schedules before visiting - visit during low tide only<br>
+        • Wear sturdy, non-slip shoes for walking on wet rocks<br>
+        • Stay on marked coastal paths - some areas are slippery and unstable<br>
+        • Visit during daylight hours only
+      </div>
+    </div>
+
+    <div class="location-safety">
+      <h4>📍 Nam Koo Terrace (Wan Chai)</h4>
+      <div class="safety-tip" style="margin-left: 1rem;">
+        • View from public street ONLY - the building is structurally unsafe<br>
+        • Do not attempt to enter - illegal and dangerous<br>
+        • Respect local residents - this is a residential area<br>
+        • Best viewed during daylight hours<br>
+        • Take photos from public pavement only
+      </div>
+    </div>
+
+    <div class="location-safety">
+      <h4>📍 High Street Haunted House (Sai Ying Pun)</h4>
+      <div class="safety-tip" style="margin-left: 1rem;">
+        • View from public footpath ONLY - the building is sealed and unstable<br>
+        • Do not attempt to enter - extreme danger, structural collapse risk<br>
+        • Respect the historical trauma associated with this site<br>
+        • Visit during daylight for best viewing and safety<br>
+        • Photography allowed from public areas only
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Contacts -->
+  <div class="section-card">
+    <h2 class="section-title">Emergency Contacts</h2>
+    <div class="emergency-grid">
+      <div class="emergency-item">
+        <div class="emergency-number">999</div>
+        <div class="emergency-service">Police / Ambulance / Fire</div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-number">+852 2508 1234</div>
+        <div class="emergency-service">Tourist Hotline</div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-number">+852 2703 8888</div>
+        <div class="emergency-service">Sai Kung Police Station</div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-number">+852 2859 4243</div>
+        <div class="emergency-service">Kennedy Town Police</div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-number">+852 2829 1832</div>
+        <div class="emergency-service">Wan Chai Police Station</div>
+      </div>
+      <div class="emergency-item">
+        <div class="emergency-number">+852 2546 2633</div>
+        <div class="emergency-service">Sai Ying Pun Police</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weather & Resources -->
+  <div class="section-card">
+    <h2 class="section-title">Weather & Resources</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">Hong Kong Observatory</div>
+        <div class="info-value"><a href="https://www.hko.gov.hk" target="_blank">www.hko.gov.hk →</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Tide Predictions</div>
+        <div class="info-value"><a href="https://www.hko.gov.hk/en/tide/tide_frame.htm" target="_blank">Check before Waterfall Bay →</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Typhoon Warnings</div>
+        <div class="info-value">Avoid all outdoor sites during T8 or above</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Transport Department</div>
+        <div class="info-value"><a href="https://www.td.gov.hk" target="_blank">www.td.gov.hk →</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Respectful Tourism -->
+  <div class="section-card">
+    <h2 class="section-title">Respectful Tourism</h2>
+    <div class="safety-tip">
+      <strong>Historical Trauma</strong><br>
+      These locations have witnessed suffering, death, and tragedy. Visit with awareness and respect for those who suffered here.
+    </div>
+    <div class="safety-tip">
+      <strong>Do Not Disturb</strong><br>
+      Do not leave trash, graffiti, or any markings. Leave no trace. Do not disturb any memorials, offerings, or religious items.
+    </div>
+    <div class="safety-tip">
+      <strong>Quiet Reflection</strong><br>
+      Keep noise levels low. These are somber locations, not entertainment venues. Be mindful of local residents living nearby.
+    </div>
+    <div class="safety-tip">
+      <strong>Photography Etiquette</strong><br>
+      Photography is allowed from public areas only. Do not use flash inside or near any memorial sites. Be discreet and respectful.
+    </div>
+  </div>
+
+  <!-- Offline Map Instructions -->
+  <div class="section-card">
+    <h2 class="section-title">Offline Maps Instructions</h2>
+    <div class="safety-tip">
+      <strong>How to download offline Google Maps:</strong><br>
+      1. Open Google Maps app<br>
+      2. Tap your profile picture → Offline maps → Select your own map<br>
+      3. Zoom to cover Sai Kung, Pok Fu Lam, Wan Chai, and Sai Ying Pun areas<br>
+      4. Tap Download<br>
+      5. Maps will be available without mobile data
+      <a href="https://support.google.com/maps/answer/6291838" target="_blank" class="resource-link">Full Instructions →</a>
+    </div>
+    <div class="safety-tip">
+      <strong>Recommended offline areas:</strong><br>
+      • Sai Kung Peninsula (for Yim Tin Tsai ferry access)<br>
+      • Pok Fu Lam / Kennedy Town (for Waterfall Bay)<br>
+      • Wan Chai / Ship Street area<br>
+      • Sai Ying Pun / High Street vicinity
+    </div>
+  </div>
+
+  <footer>
+    <p>Hide & Seek · Safety Guide</p>
+    <p>Urban legends · Hidden history · Authentic Hong Kong</p>
+    <p style="font-size: 0.7rem; margin-top: 0.5rem;">In case of emergency, call 999 immediately</p>
+  </footer>
+</div>
+
+<div class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+</body>
+</html>
