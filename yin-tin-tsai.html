@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hide & Seek | Yim Tin Tsai Ghost Island Guide</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #f5e6a3;
+  line-height: 1.6;
+  font-size: 16px;
+  min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/40/St_Joseph%27s_Chapel_in_Yim_Tin_Tsai.JPG');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  transform: scale(1.05);
+  z-index: -2;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+.navbar {
+  background: rgba(10, 15, 12, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #e6b422;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e6b422;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+.logo a:hover {
+  color: #f5d76e;
+}
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links li a {
+  color: #f5e6a3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+.nav-links li a:hover {
+  background: rgba(230,180,34,0.1);
+  color: #f5d76e;
+}
+.nav-links li a.active {
+  background: #e6b422;
+  color: #0a0f0c;
+}
+@media (max-width: 768px) {
+  .navbar { padding: 0.75rem 1rem; }
+  .nav-container { flex-direction: column; text-align: center; }
+  .nav-links li a { padding: 0.5rem 1rem; font-size: 0.85rem; }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #e6b422;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover {
+  color: #f5d76e;
+}
+
+.hero-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(230,180,34,0.3);
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #f5d76e;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.subtitle {
+  color: #c9b86a;
+  margin-bottom: 2rem;
+  border-left: 3px solid #e6b422;
+  padding-left: 1rem;
+}
+
+.section-card {
+  background: rgba(20, 30, 35, 0.75);
+  backdrop-filter: blur(4px);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(230,180,34,0.3);
+}
+.section-title {
+  color: #f5d76e;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e6b422;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+.section-title::before {
+  content: '▍';
+  color: #e6b422;
+  margin-right: 0.5rem;
+}
+
+.legend-grid {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.legend-text {
+  flex: 2;
+  font-size: 1rem;
+  color: #e8dcaa;
+  line-height: 1.7;
+}
+.legend-images {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.legend-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(230,180,34,0.4);
+  transition: transform 0.2s ease;
+}
+.legend-img:hover {
+  transform: scale(1.02);
+  border-color: #e6b422;
+}
+@media (max-width: 700px) {
+  .legend-grid {
+    flex-direction: column;
+  }
+  .legend-images {
+    flex-direction: row;
+  }
+  .legend-img {
+    width: calc(50% - 0.4rem);
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.info-item {
+  background: rgba(0,0,0,0.4);
+  padding: 0.8rem;
+  border-radius: 0.75rem;
+  border-left: 3px solid #e6b422;
+}
+.info-label {
+  font-size: 0.7rem;
+  color: #c9b86a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f5d76e;
+  margin-top: 0.3rem;
+}
+
+.horiz-scroll-section {
+  margin: 1rem 0;
+}
+.scroll-hint {
+  font-size: 0.75rem;
+  color: #c9b86a;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-bottom: 1rem;
+  cursor: grab;
+  scroll-behavior: smooth;
+}
+.horizontal-scroll:active {
+  cursor: grabbing;
+}
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: rgba(230,180,34,0.2);
+  border-radius: 4px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #e6b422;
+  border-radius: 4px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #f5d76e;
+}
+.food-card {
+  display: inline-block;
+  width: 280px;
+  white-space: normal;
+  background: rgba(0,0,0,0.65);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-right: 1rem;
+  border: 1px solid rgba(230,180,34,0.3);
+  vertical-align: top;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.food-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(230,180,34,0.8);
+  background: rgba(0,0,0,0.75);
+}
+.food-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.food-name {
+  color: #e6b422;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.food-price {
+  display: inline-block;
+  background: #e6b422;
+  color: #0a0f0c;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+.food-desc {
+  font-size: 0.8rem;
+  color: #c9b86a;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+.food-direction {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: #e6b422;
+  text-decoration: none;
+  border: 1px solid #e6b422;
+  padding: 0.3rem 0.6rem;
+  border-radius: 1rem;
+  margin-top: 0.3rem;
+  transition: all 0.2s ease;
+}
+.food-direction:hover {
+  background: #e6b422;
+  color: #0a0f0c;
+}
+
+.direction-btn {
+  display: inline-block;
+  background: #e6b422;
+  color: #0a0f0c;
+  padding: 0.7rem 1.5rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+}
+.direction-btn:hover {
+  background: #f5d76e;
+  transform: translateY(-2px);
+}
+
+.safety-box {
+  background: rgba(0,0,0,0.5);
+  border-left: 3px solid #e6b422;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+.safety-box strong {
+  color: #f5d76e;
+}
+.safety-box ul {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+.safety-box li {
+  margin: 0.3rem 0;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  width: 48px;
+  height: 48px;
+  background: #e6b422;
+  color: #0a0f0c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 99;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.back-to-top:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  background: #f5d76e;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(230,180,34,0.3);
+  font-size: 0.8rem;
+  color: #a09860;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo"><a href="index.html">HIDE & SEEK</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="yim-tin-tsai.html" class="active">Yim Tin Tsai</a></li>
+      <li><a href="waterfall-bay.html">Waterfall Bay</a></li>
+      <li><a href="nam-koo-terrace.html">Nam Koo Terrace</a></li>
+      <li><a href="high-street.html">High Street</a></li>
+      <li><a href="safety.html">Safety</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to Home</a>
+  
+  <div class="hero-image">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/St_Joseph%27s_Chapel_in_Yim_Tin_Tsai.JPG" alt="Yim Tin Tsai Island aerial view" loading="lazy">
+  </div>
+  
+  <h1>Yim Tin Tsai</h1>
+  <p class="subtitle">Sai Kung · Ghost Island · Abandoned Church · Midnight Bells</p>
+
+  <!-- Legend / Myth Section with Images -->
+  <div class="section-card">
+    <h2 class="section-title">The Legend</h2>
+    <div class="legend-grid">
+      <div class="legend-text">
+        Locals say the abandoned St. Joseph's Chapel bells ring at midnight, even though the ropes were cut decades ago. Some visitors report hearing children singing from the ruined schoolhouse. Whether ghost or guilt, Yim Tin Tsai holds secrets the salt fields never washed away. The Hakka village, abandoned in the 1990s, is said to be watched over by the spirits of its former residents who refuse to leave their ancestral home.
+      </div>
+      <div class="legend-images">
+        <img class="legend-img" src="https://zolimacitymag.com/wp-content/uploads/2017/04/1400_933.jpg" alt="St. Joseph's Chapel Yim Tin Tsai" loading="lazy">
+        <img class="legend-img" src="https://droneandslr.com/wp-content/uploads/2019/02/yim-tin-tsai-hong-kong-22.jpg" alt="Abandoned village houses" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Info Grid -->
+  <div class="section-card">
+    <h2 class="section-title">Quick Guide</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">Location</div>
+        <div class="info-value">Port Shelter, Sai Kung</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Access</div>
+        <div class="info-value">Ferry from Sai Kung Pier</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Ferry Schedule</div>
+        <div class="info-value">Every 30 min · Last ferry 5:30pm</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Best Time</div>
+        <div class="info-value">Sunset or early morning</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Duration</div>
+        <div class="info-value">2-3 hours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Food Section with Horizontal Scroll & Direction Buttons -->
+  <div class="section-card">
+    <h2 class="section-title">Food Under HK$50</h2>
+    
+    <div class="horiz-scroll-section">
+      <div class="scroll-hint">← Scroll horizontally with mouse wheel or touch swipe →</div>
+      
+      <div class="horizontal-scroll" id="foodScroll">
+        
+        <div class="food-card">
+          <img class="food-image" src="https://bitingatthebits.com/wp-content/uploads/2025/12/shrimp-toast-best-crispy-appetizer-cut-open-filling.jpg" alt="Fresh Shrimp Toast" loading="lazy">
+          <div class="food-name">Fresh Shrimp Toast</div>
+          <div class="food-price">HK$38</div>
+          <div class="food-desc">Sai Kung Seafood Market, Stall 12</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Sai+Kung+Seafood+Market+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://cdn7.kiwilimon.com/brightcove/6386/640x640/6386.jpg.webp" alt="Salted Fish Rice Roll" loading="lazy">
+          <div class="food-name">Salted Fish Rice Roll</div>
+          <div class="food-price">HK$28</div>
+          <div class="food-desc">Yim Tin Tsai Ferry Pier Snack Shop</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Sai+Kung+Pier+Yim+Tin+Tsai+Ferry" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/02/2f/85/dd/fish-ball-noodle.jpg?w=900&h=-1&s=1" alt="Fish Ball Noodle Soup" loading="lazy">
+          <div class="food-name">Fish Ball Noodle Soup</div>
+          <div class="food-price">HK$32</div>
+          <div class="food-desc">Sai Kung Town Centre</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Sai+Kung+Town+Centre+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://myseafoodmart.com/blog/wp-content/uploads/2016/03/saltedegg.jpg" alt="Fried Squid with Salted Egg" loading="lazy">
+          <div class="food-name">Fried Squid with Salted Egg</div>
+          <div class="food-price">HK$48</div>
+          <div class="food-desc">Seafood Street, Sai Kung</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Seafood+Street+Sai+Kung+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJLqROkPRR1_570K7O78UHsVoI2zMc25OwcYH5oR7TBDVgsqd1LRVw477dp81YZwZNzpQFayt53RPfmM4wN6gTyVQB1QrqT-jmyWW2qDjPbgLMgwEaCJzXhkyGLf_Z50Fo9vutCA9lXCo/s1600/Ah-Por-Tofu-Fa-Tofu-Pudding-Tai-Po-Hong-Kong-3.JPG" alt="Tofu Pudding" loading="lazy">
+          <div class="food-name">Tofu Pudding</div>
+          <div class="food-price">HK$15</div>
+          <div class="food-desc">Local dessert shop near pier</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Sai+Kung+Pier+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://smellylunchbox.com/wp-content/uploads/2025/02/cantonese-steamed-whole-fish-scaled.jpg" alt="Steamed Fish Belly" loading="lazy">
+          <div class="food-name">Steamed Fish Belly</div>
+          <div class="food-price">HK$45</div>
+          <div class="food-desc">Sai Kung Seafood Street</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Seafood+Street+Sai+Kung+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Transport & Directions -->
+  <div class="section-card">
+    <h2 class="section-title">Getting There</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">MTR + Ferry</div>
+        <div class="info-value">MTR Hang Hau Station → Bus 101M to Sai Kung Pier → Ferry to Yim Tin Tsai</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Direct Bus</div>
+        <div class="info-value">Bus 92 from Diamond Hill MTR to Sai Kung Town</div>
+      </div>
+    </div>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Sai+Kung+Pier+Yim+Tin+Tsai+Ferry" target="_blank" class="direction-btn">Get Directions →</a>
+  </div>
+
+  <!-- Historical Facts -->
+  <div class="section-card">
+    <h2 class="section-title">Historical Background</h2>
+    <p class="legend-text" style="font-size: 0.9rem;">Yim Tin Tsai means "Little Salt Pan" in Chinese. It was the only salt production location in Hong Kong. The island was settled by Hakka people in the 19th century and once had 500 residents. St. Joseph's Chapel, built in 1890, is a Grade III historic building and won a UNESCO Asia-Pacific Heritage Award in 2005. The village was completely abandoned in the 1990s but has seen conservation efforts since 2011.</p>
+  </div>
+
+  <!-- Safety Notes -->
+  <div class="safety-box">
+    <strong>Safety First</strong>
+    <ul>
+      <li>View from public ferry and marked paths only</li>
+      <li>Do not enter abandoned buildings or the old school</li>
+      <li>Check ferry schedule before going (last ferry returns before 6pm)</li>
+      <li>Bring water, sunscreen, and mosquito repellent</li>
+      <li>Respect local beliefs and the Catholic heritage of the island</li>
+      <li>Download offline Google Maps for Sai Kung area before departure</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>Hide & Seek · Yim Tin Tsai Ghost Trail Guide</p>
+    <p>Urban legends · Hidden history · Authentic Hong Kong</p>
+  </footer>
+</div>
+
+<div class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+const scrollContainer = document.getElementById('foodScroll');
+if (scrollContainer) {
+  scrollContainer.addEventListener('wheel', function(e) {
+    if (e.deltaY !== 0) {
+      e.preventDefault();
+      scrollContainer.scrollLeft += e.deltaY;
+    }
+  });
+}
+</script>
+
+</body>
+</html>
