@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Hide & Seek | Interactive Map</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #5a8aa5 0%, #326661 50%, #051b1b 100%);
+      color: #f5e6a3;
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+  /* Body with blurred background image */
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #f5e6a3;
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  /* Blurred background image */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://ichef.bbci.co.uk/images/ic/1376xn/p04p8j20.jpg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    transform: scale(1.05);
+    z-index: -2;
+  }
+
+  /* Dark overlay on top of blurred image for better text readability */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+  }
+
+    /* Navigation Bar */
+    .navbar {
+      background: rgba(10, 15, 12, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #e6b422;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #e6b422;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+      padding: 0.5rem 0;
+      display: inline-block;
+    }
+
+    .logo a:hover {
+      color: #f5d76e;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-links li a {
+      color: #f5e6a3;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .nav-links li a:hover {
+      background: #e6b422;
+      color: #0a0f0c;
+      transform: translateY(-2px);
+    }
+
+    .nav-links li a.active {
+      background: #e6b422;
+      color: #0a0f0c;
+    }
+
+    .nav-food {
+      background: rgba(230, 180, 34, 0.15);
+      border: 1px solid #e6b422;
+    }
+
+    .nav-food:hover {
+      background: #e6b422 !important;
+      color: #0a0f0c !important;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 0.75rem 1rem;
+      }
+      .nav-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+      .nav-links li a {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+      .logo a {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f5d76e;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #c9b86a;
+      margin-bottom: 2rem;
+      border-left: 3px solid #e6b422;
+      padding-left: 1rem;
+      display: inline-block;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Map Container */
+    .map-container {
+      background: rgba(20, 30, 35, 0.85);
+      border-radius: 1.25rem;
+      padding: 1rem;
+      border: 1px solid rgba(230, 180, 34, 0.3);
+      margin-bottom: 2rem;
+    }
+
+    #map {
+      height: 450px;
+      width: 100%;
+      border-radius: 0.75rem;
+      z-index: 1;
+    }
+
+    /* Location List */
+    .locations-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .location-card {
+      background: rgba(20, 30, 35, 0.85);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(230, 180, 34, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .location-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(230, 180, 34, 0.7);
+    }
+
+    .location-card h3 {
+      color: #f5d76e;
+      margin-bottom: 0.5rem;
+    }
+
+    .location-card p {
+      font-size: 0.85rem;
+      color: #e8dcaa;
+      margin-bottom: 0.75rem;
+    }
+
+    .direction-btn {
+      display: inline-block;
+      background: #e6b422;
+      color: #0a0f0c;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .direction-btn:hover {
+      background: #f5d76e;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(230, 180, 34, 0.3);
+      font-size: 0.8rem;
+      color: #a09860;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">
+      <a href="index.html">HIDE & SEEK</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="map.html" class="active">Map</a></li>
+      <li><a href="yim-tin-tsai.html">Yim Tin Tsai</a></li>
+      <li><a href="waterfall-bay.html">Waterfall Bay</a></li>
+      <li><a href="nam-koo-terrace.html">Nam Koo Terrace</a></li>
+      <li><a href="high-street.html">High Street</a></li>
+      <li><a href="safety.html" class="nav-food">Safety</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container">
+  
+  <h1>Interactive Ghost Trail Map</h1>
+  <div style="text-align: center;">
+    <p class="subtitle">Click any pin or button to get Google Maps directions</p>
+  </div>
+
+  <!-- Map -->
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+
+  <!-- Location Buttons -->
+  <div class="locations-list">
+    <div class="location-card">
+      <h3>Yim Tin Tsai</h3>
+      <p>Sai Kung · Ghost Island · Abandoned Church</p>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Yim+Tin+Tsai+Village+Sai+Kung" target="_blank" class="direction-btn">Get Directions →</a>
+    </div>
+
+    <div class="location-card">
+      <h3>Waterfall Bay</h3>
+      <p>Pok Fu Lam · Pirate Massacre · Seaside</p>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Waterfall+Bay+Pok+Fu+Lam+Hong+Kong" target="_blank" class="direction-btn">Get Directions →</a>
+    </div>
+
+    <div class="location-card">
+      <h3>Nam Koo Terrace</h3>
+      <p>Wan Chai · Wartime Ghosts · 1918 Mansion</p>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Nam+Koo+Terrace+Ship+Street+Wan+Chai" target="_blank" class="direction-btn">Get Directions →</a>
+    </div>
+
+    <div class="location-card">
+      <h3>High Street Haunted House</h3>
+      <p>Sai Ying Pun · Former Asylum · Plague Hospital</p>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=High+Street+Haunted+House+Sai+Ying+Pun" target="_blank" class="direction-btn">Get Directions →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Hide & Seek · Click any direction button to open Google Maps</p>
+    <p>All locations can be viewed from public areas · Respect local residents</p>
+  </footer>
+
+</div>
+
+<script>
+  // Initialize the map centered on Hong Kong
+  var map = L.map('map').setView([22.3193, 114.1694], 11);
+
+  // Dark map tiles to match your theme
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; CartoDB',
+    subdomains: 'abcd',
+    minZoom: 10,
+    maxZoom: 18
+  }).addTo(map);
+
+  // Custom yellow icon for the pins
+  var yellowIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  // If the custom icon doesn't load, fallback to default with yellow filter
+  // Location data
+  var locations = [
+    {
+      name: "Yim Tin Tsai",
+      coords: [22.3820, 114.2690],
+      address: "Yim Tin Tsai Village, Sai Kung",
+      googleUrl: "https://www.google.com/maps/dir/?api=1&destination=Yim+Tin+Tsai+Village+Sai+Kung"
+    },
+    {
+      name: "Waterfall Bay",
+      coords: [22.2630, 114.1360],
+      address: "Waterfall Bay, Pok Fu Lam",
+      googleUrl: "https://www.google.com/maps/dir/?api=1&destination=Waterfall+Bay+Pok+Fu+Lam+Hong+Kong"
+    },
+    {
+      name: "Nam Koo Terrace",
+      coords: [22.2780, 114.1730],
+      address: "Nam Koo Terrace, Ship Street, Wan Chai",
+      googleUrl: "https://www.google.com/maps/dir/?api=1&destination=Nam+Koo+Terrace+Ship+Street+Wan+Chai"
+    },
+    {
+      name: "High Street Haunted House",
+      coords: [22.2850, 114.1420],
+      address: "High Street, Sai Ying Pun",
+      googleUrl: "https://www.google.com/maps/dir/?api=1&destination=High+Street+Haunted+House+Sai+Ying+Pun"
+    }
+  ];
+
+  // Add markers to the map
+  locations.forEach(function(location) {
+    var marker = L.marker(location.coords).addTo(map);
+    
+    // Bind popup with clickable Google Maps link
+    marker.bindPopup(`
+      <b style="color:#e6b422;">${location.name}</b><br>
+      ${location.address}<br><br>
+      <a href="${location.googleUrl}" target="_blank" style="background:#e6b422; color:#0a0f0c; padding:5px 10px; border-radius:20px; text-decoration:none; font-weight:bold; display:inline-block; margin-top:5px;">Get Directions →</a>
+    `);
+  });
+
+  // Optional: Add a scale bar
+  L.control.scale().addTo(map);
+</script>
+
+</body>
+</html>
