@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hide & Seek | Waterfall Bay Pirate Massacre Guide</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #f5e6a3;
+  line-height: 1.6;
+  font-size: 16px;
+  min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1400/https://zolimacitymag.com/wp-content/uploads/2017/10/1400_933.Waterfall_Bay_CDW_Zolimacitymag.com_.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  transform: scale(1.05);
+  z-index: -2;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+.navbar {
+  background: rgba(10, 15, 12, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #e6b422;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e6b422;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+.logo a:hover {
+  color: #f5d76e;
+}
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links li a {
+  color: #f5e6a3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+.nav-links li a:hover {
+  background: rgba(230,180,34,0.1);
+  color: #f5d76e;
+}
+.nav-links li a.active {
+  background: #e6b422;
+  color: #0a0f0c;
+}
+@media (max-width: 768px) {
+  .navbar { padding: 0.75rem 1rem; }
+  .nav-container { flex-direction: column; text-align: center; }
+  .nav-links li a { padding: 0.5rem 1rem; font-size: 0.85rem; }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #e6b422;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover {
+  color: #f5d76e;
+}
+
+.hero-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(230,180,34,0.3);
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #f5d76e;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.subtitle {
+  color: #c9b86a;
+  margin-bottom: 2rem;
+  border-left: 3px solid #e6b422;
+  padding-left: 1rem;
+}
+
+.section-card {
+  background: rgba(20, 30, 35, 0.75);
+  backdrop-filter: blur(4px);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(230,180,34,0.3);
+}
+.section-title {
+  color: #f5d76e;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e6b422;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+.section-title::before {
+  content: '▍';
+  color: #e6b422;
+  margin-right: 0.5rem;
+}
+
+.legend-grid {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.legend-text {
+  flex: 2;
+  font-size: 1rem;
+  color: #e8dcaa;
+  line-height: 1.7;
+}
+.legend-images {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.legend-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(230,180,34,0.4);
+  transition: transform 0.2s ease;
+}
+.legend-img:hover {
+  transform: scale(1.02);
+  border-color: #e6b422;
+}
+@media (max-width: 700px) {
+  .legend-grid {
+    flex-direction: column;
+  }
+  .legend-images {
+    flex-direction: row;
+  }
+  .legend-img {
+    width: calc(50% - 0.4rem);
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.info-item {
+  background: rgba(0,0,0,0.4);
+  padding: 0.8rem;
+  border-radius: 0.75rem;
+  border-left: 3px solid #e6b422;
+}
+.info-label {
+  font-size: 0.7rem;
+  color: #c9b86a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.info-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f5d76e;
+  margin-top: 0.3rem;
+}
+
+.horiz-scroll-section {
+  margin: 1rem 0;
+}
+.scroll-hint {
+  font-size: 0.75rem;
+  color: #c9b86a;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-bottom: 1rem;
+  cursor: grab;
+  scroll-behavior: smooth;
+}
+.horizontal-scroll:active {
+  cursor: grabbing;
+}
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: rgba(230,180,34,0.2);
+  border-radius: 4px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #e6b422;
+  border-radius: 4px;
+}
+.horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #f5d76e;
+}
+.food-card {
+  display: inline-block;
+  width: 280px;
+  white-space: normal;
+  background: rgba(0,0,0,0.65);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-right: 1rem;
+  border: 1px solid rgba(230,180,34,0.3);
+  vertical-align: top;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.food-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(230,180,34,0.8);
+  background: rgba(0,0,0,0.75);
+}
+.food-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.food-name {
+  color: #e6b422;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.food-price {
+  display: inline-block;
+  background: #e6b422;
+  color: #0a0f0c;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+.food-desc {
+  font-size: 0.8rem;
+  color: #c9b86a;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+.food-direction {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: #e6b422;
+  text-decoration: none;
+  border: 1px solid #e6b422;
+  padding: 0.3rem 0.6rem;
+  border-radius: 1rem;
+  margin-top: 0.3rem;
+  transition: all 0.2s ease;
+}
+.food-direction:hover {
+  background: #e6b422;
+  color: #0a0f0c;
+}
+
+.direction-btn {
+  display: inline-block;
+  background: #e6b422;
+  color: #0a0f0c;
+  padding: 0.7rem 1.5rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+}
+.direction-btn:hover {
+  background: #f5d76e;
+  transform: translateY(-2px);
+}
+
+.safety-box {
+  background: rgba(0,0,0,0.5);
+  border-left: 3px solid #e6b422;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+.safety-box strong {
+  color: #f5d76e;
+}
+.safety-box ul {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+.safety-box li {
+  margin: 0.3rem 0;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  width: 48px;
+  height: 48px;
+  background: #e6b422;
+  color: #0a0f0c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 99;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.back-to-top:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  background: #f5d76e;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(230,180,34,0.3);
+  font-size: 0.8rem;
+  color: #a09860;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo"><a href="index.html">HIDE & SEEK</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="yim-tin-tsai.html">Yim Tin Tsai</a></li>
+      <li><a href="waterfall-bay.html" class="active">Waterfall Bay</a></li>
+      <li><a href="nam-koo-terrace.html">Nam Koo Terrace</a></li>
+      <li><a href="high-street.html">High Street</a></li>
+      <li><a href="safety.html">Safety</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to Home</a>
+  
+  <div class="hero-image">
+    <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1400/https://zolimacitymag.com/wp-content/uploads/2017/10/1400_933.Waterfall_Bay_CDW_Zolimacitymag.com_.jpg" alt="Waterfall Bay rocky shoreline" loading="lazy">
+  </div>
+  
+  <h1>Waterfall Bay</h1>
+  <p class="subtitle">Pok Fu Lam · Pirate Massacre · Restless Waters</p>
+
+  <!-- Legend / Myth Section with Images -->
+  <div class="section-card">
+    <h2 class="section-title">The Legend</h2>
+    <div class="legend-grid">
+      <div class="legend-text">
+        During the Qing dynasty, ruthless pirates patrolled the waters around Hong Kong. Legend says that after a brutal raid, the pirates dumped the bodies of their victims into the bay at Waterfall Bay. Locals whisper that on stormy nights, you can still hear the desperate cries of the drowned echoing across the water. Fishermen avoid the area after dark, believing the restless spirits pull swimmers toward the depths. The rocky shore, once stained with blood, is said to be haunted by the souls who never found their way home.
+      </div>
+      <div class="legend-images">
+        <img class="legend-img" src="https://droneandslr.com/wp-content/uploads/2021/06/watefall-bay-hk-aerial-7.jpg" alt="Waterfall Bay rocky coast" loading="lazy">
+        <img class="legend-img" src="https://www.wearethemighty.com/wp-content/uploads/legacy/assets.rbl.ms/17312663/origin.jpg?quality=85&w=1024" alt="Qing dynasty pirate ship" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Info Grid -->
+  <div class="section-card">
+    <h2 class="section-title">Quick Guide</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">Location</div>
+        <div class="info-value">Pok Fu Lam, Hong Kong Island</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Access</div>
+        <div class="info-value">Bus 43M from Kennedy Town MTR</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Best Time</div>
+        <div class="info-value">Low tide · Daytime only</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Duration</div>
+        <div class="info-value">1-2 hours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Food Section with Horizontal Scroll & Direction Buttons -->
+  <div class="section-card">
+    <h2 class="section-title">Food Under HK$50</h2>
+    
+    <div class="horiz-scroll-section">
+      <div class="scroll-hint">← Scroll horizontally with mouse wheel or touch swipe →</div>
+      
+      <div class="horizontal-scroll" id="foodScroll">
+        
+        <div class="food-card">
+          <img class="food-image" src="https://lh3.googleusercontent.com/pw/AP1GczMi04C4ijF7Dr08zVSGS5aHMkfE6YVEbe1XeSmvadcGt1XUZOinveiM2sz-XSYBnfBJKePSj6x75QB_LhJSwqznUdTEEa1MjNrKFaot7IYPLW4w24kqTvb-81fZYEj9DU0xUG9kpnjiHVHlzMFsl75jng=w500-h375-no?authuser=0" alt="Crab Congee" loading="lazy">
+          <div class="food-name">Crab Congee</div>
+          <div class="food-price">HK$45</div>
+          <div class="food-desc">Kennedy Town Cooked Food Centre</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Kennedy+Town+Cooked+Food+Centre+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://onecms-res.cloudinary.com/image/upload/v1702106565/mediacorp/8days/image/2023/12/09/supreme_soy_sauce_fried_hongkong_noodles_shiyouwangyinyachaoxianggangmian.png" alt="Dai Pai Dong Noodles" loading="lazy">
+          <div class="food-name">Dai Pai Dong Noodles</div>
+          <div class="food-price">HK$32</div>
+          <div class="food-desc">Smithfield Market, Kennedy Town</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Smithfield+Market+Kennedy+Town" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://i0.wp.com/blog.themalamarket.com/wp-content/uploads/2025/01/Typhoon-Shelter-Crab-beauty-TH.jpg?resize=800%2C600&ssl=1" alt="Fried Crab with Garlic" loading="lazy">
+          <div class="food-name">Fried Crab with Garlic</div>
+          <div class="food-price">HK$48</div>
+          <div class="food-desc">Seafood Street, Kennedy Town</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Kennedy+Town+Seafood+Street+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://www.afoodieworld.com/wp-content/uploads/2024/08/Where-to-find-the-best-egg-waffles-in-Hong-Kong-2-1024x683.jpg" alt="Egg Waffle" loading="lazy">
+          <div class="food-name">Egg Waffle</div>
+          <div class="food-price">HK$18</div>
+          <div class="food-desc">Kennedy Town Street Food Stall</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Kennedy+Town+MTR+Station+Exit+A" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://www.coba-grills.hk/cdn/shop/articles/C5_76efed79-dc3e-4c58-b0d3-c30cbd82881d_1200x1200.jpg?v=1599908849" alt="Curry Fish Balls" loading="lazy">
+          <div class="food-name">Curry Fish Balls</div>
+          <div class="food-price">HK$15</div>
+          <div class="food-desc">Pok Fu Lam Village Snack Shop</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Pok+Fu+Lam+Village+Hong+Kong" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+        <div class="food-card">
+          <img class="food-image" src="https://media.timeout.com/images/105638922/750/422/image.jpg" alt="Hong Kong Milk Tea" loading="lazy">
+          <div class="food-name">Hong Kong Milk Tea</div>
+          <div class="food-price">HK$12</div>
+          <div class="food-desc">Local Cha Chaan Teng, Kennedy Town</div>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Kennedy+Town+Cha+Chaan+Teng" target="_blank" class="food-direction">Get Directions →</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Transport & Directions -->
+  <div class="section-card">
+    <h2 class="section-title">Getting There</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">MTR + Bus</div>
+        <div class="info-value">MTR Kennedy Town Station → Bus 43M to Waterfall Bay</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Walking</div>
+        <div class="info-value">20 min walk from Kennedy Town along coastal path</div>
+      </div>
+    </div>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Waterfall+Bay+Pok+Fu+Lam+Hong+Kong" target="_blank" class="direction-btn">Get Directions →</a>
+  </div>
+
+  <!-- Historical Facts -->
+  <div class="section-card">
+    <h2 class="section-title">Historical Background</h2>
+    <p class="legend-text" style="font-size: 0.9rem;">Waterfall Bay was once a notorious hideout for pirates during the Qing dynasty. The bay's secluded coves and rocky coastline made it an ideal location for smuggling and illegal activities. Local records mention pirate attacks on fishing villages in the area during the 18th and 19th centuries. Today, the bay is known for its dramatic rock formations and is a popular spot for photography, but locals still share stories of ghostly sightings and unexplained sounds near the water after sunset.</p>
+  </div>
+
+  <!-- Safety Notes -->
+  <div class="safety-box">
+    <strong>Safety First</strong>
+    <ul>
+      <li>Do not swim in the bay - strong currents and sharp rocks</li>
+      <li>Check tide schedules before visiting (avoid high tide)</li>
+      <li>Stay on marked paths and public viewing areas</li>
+      <li>Visit during daylight hours only</li>
+      <li>Wear sturdy shoes for walking on rocky terrain</li>
+      <li>Download offline Google Maps for Pok Fu Lam area</li>
+      <li>Respect local residents and private property</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>Hide & Seek · Waterfall Bay Pirate Massacre Guide</p>
+    <p>Urban legends · Hidden history · Authentic Hong Kong</p>
+  </footer>
+</div>
+
+<div class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+const scrollContainer = document.getElementById('foodScroll');
+if (scrollContainer) {
+  scrollContainer.addEventListener('wheel', function(e) {
+    if (e.deltaY !== 0) {
+      e.preventDefault();
+      scrollContainer.scrollLeft += e.deltaY;
+    }
+  });
+}
+</script>
+
+</body>
+</html>
